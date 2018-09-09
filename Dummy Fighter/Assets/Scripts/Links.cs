@@ -9,8 +9,13 @@ public class Links : MonoBehaviour {
     public int Idle { get; set; }
     public int Dodge { get; set; }
     public int Attack { get; set; }
+    public LinkState State { get; set; }
+   
 
-    // Use this for initialization
+    public Links (LinkState state)
+    {
+        State = state;
+    }
     void Start () {
 		
 	}

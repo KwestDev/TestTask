@@ -5,9 +5,9 @@ using UnityEngine;
 public class ChainInspector : MonoBehaviour {
 
 	// Use this for initialization
-    public Links Chain { get; set; }
+    public List<Links> Chain { get; set; }
 	void Start () {
-		
+        Chain = new List<Links>();
 	}
 	
 	// Update is called once per frame
