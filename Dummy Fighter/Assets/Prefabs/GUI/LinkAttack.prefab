@@ -211,6 +211,7 @@ GameObject:
   - component: {fileID: 114202970845510892}
   - component: {fileID: 225537917945347332}
   - component: {fileID: 114340850880098660}
+  - component: {fileID: 114946896479968648}
   m_Layer: 5
   m_Name: LinkAttack
   m_TagString: Untagged
@@ -617,6 +618,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: ATTACK
+--- !u!114 &114946896479968648
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1971554432416692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7376107e722c4364a81856aa09fed6cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  propertyBoxes:
+  - {fileID: 1046667751524954}
+  - {fileID: 1489433531096032}
+  - {fileID: 1312225267258758}
 --- !u!222 &222103903758508348
 CanvasRenderer:
   m_ObjectHideFlags: 1

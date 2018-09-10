@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 114236188232896334}
   - component: {fileID: 225201132719100638}
   - component: {fileID: 114790355506307972}
+  - component: {fileID: 114186990550396570}
   m_Layer: 5
   m_Name: LinkThink
   m_TagString: Untagged
@@ -245,6 +246,21 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114186990550396570
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1277170632735878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7376107e722c4364a81856aa09fed6cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  propertyBoxes:
+  - {fileID: 1818930028688128}
+  - {fileID: 1094446396170402}
+  - {fileID: 1842774964868344}
 --- !u!114 &114187763416318242
 MonoBehaviour:
   m_ObjectHideFlags: 1

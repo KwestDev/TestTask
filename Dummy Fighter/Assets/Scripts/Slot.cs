@@ -36,6 +36,7 @@ public class Slot : MonoBehaviour, IDropHandler
        
         if (!item)
         {
+
             dragHandeler.itemBeingDragged.transform.SetParent(transform);
             var dragState = dragHandeler.itemBeingDragged.transform.GetComponent<Links>().State;
             if (dragState == LinkState.Think || dragState == LinkState.Watch)

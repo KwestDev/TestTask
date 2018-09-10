@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 114964764025333096}
   - component: {fileID: 225224813134106432}
   - component: {fileID: 114039526342032296}
+  - component: {fileID: 114628677194211088}
   m_Layer: 5
   m_Name: LinkDodge
   m_TagString: Untagged
@@ -470,6 +471,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: dodge
+--- !u!114 &114628677194211088
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1304801290553000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7376107e722c4364a81856aa09fed6cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  propertyBoxes:
+  - {fileID: 1515138954338766}
+  - {fileID: 1749630687977502}
+  - {fileID: 1675917063188892}
 --- !u!114 &114819543587595388
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -108,6 +108,7 @@ GameObject:
   - component: {fileID: 114281792101169344}
   - component: {fileID: 225578113273367574}
   - component: {fileID: 114952480405378926}
+  - component: {fileID: 114099988837828600}
   m_Layer: 5
   m_Name: LinkWatch
   m_TagString: Untagged
@@ -284,6 +285,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 0
+--- !u!114 &114099988837828600
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1538278998182130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7376107e722c4364a81856aa09fed6cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  propertyBoxes:
+  - {fileID: 1361827831183912}
+  - {fileID: 1780828034988070}
+  - {fileID: 1384083887581990}
 --- !u!114 &114196231707323966
 MonoBehaviour:
   m_ObjectHideFlags: 1

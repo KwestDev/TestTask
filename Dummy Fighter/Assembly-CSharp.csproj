@@ -53,7 +53,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\dragHandeler.cs" />
      <Compile Include="Assets\Scripts\ChainInspector.cs" />
      <Compile Include="Assets\Scripts\dragHandeler.cs" />
      <Compile Include="Assets\Scripts\EditorController.cs" />
@@ -65,16 +64,16 @@
      <Compile Include="Assets\Scripts\States.cs" />
      <None Include="Assets\Description\description.txt" />
  <Reference Include="UnityEditor.StandardEvents">
- <HintPath>F:/KwestTest/Dummy Fighter/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+ <HintPath>F:/TestTask/TestTask/Dummy Fighter/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>F:/KwestTest/Dummy Fighter/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>F:/TestTask/TestTask/Dummy Fighter/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.PackageManagerUI.Editor">
- <HintPath>F:/KwestTest/Dummy Fighter/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+ <HintPath>F:/TestTask/TestTask/Dummy Fighter/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>F:/KwestTest/Dummy Fighter/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>F:/TestTask/TestTask/Dummy Fighter/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>F:/New folder/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -257,7 +256,7 @@
  <HintPath>F:/New folder/Editor/Data/Managed/Unity.Locator.dll</HintPath>
  </Reference>
  <Reference Include="Facebook.Unity.Settings">
- <HintPath>F:/KwestTest/Dummy Fighter/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
+ <HintPath>F:/TestTask/TestTask/Dummy Fighter/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>F:/New folder/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
