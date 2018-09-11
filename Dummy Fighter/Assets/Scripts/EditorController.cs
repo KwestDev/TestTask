@@ -3,6 +3,8 @@ using System;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UI;
+using LitJson;
+
 
 
 public class EditorController : MonoBehaviour {
@@ -43,6 +45,20 @@ public class EditorController : MonoBehaviour {
 
     }
 
+    public void OnFightPressed ()
+    {
+        
+        foreach (var item in ChainInspector.Chain)
+        {
+            if (!item.name.Equals("empty"))
+                ChainData.chain.Add(new LinkData(item));
+        }
+       
+        var x = JsonMapper.ToJson(ChainData.chain);
+        
+        
+    }
+
     public void OnPropertyChange (bool index)
     {
 
@@ -52,22 +68,24 @@ public class EditorController : MonoBehaviour {
         {
             var objectLink = obj.GetComponent<Links>();
             int _index = (int)objectLink.Property;
-            switch (_index)
-            {
-                case 0:
-                    objectLink.Idle++;
-                    break;
-                case 1:
-                    objectLink.Attack++;
-                    break;
-                case 2:
-                    objectLink.Dodge++;
-                    break;
-            }
+            
 
             var objectText = objectLink.propertyBoxes[_index].transform.Find("TextValue").GetComponent<Text>();
             var increment = index ? 1 : -1;
-            
+
+            switch (_index)
+            {
+                case 0:
+                    objectLink.Idle += increment;
+                    break;
+                case 1:
+                    objectLink.Attack += increment;
+                    break;
+                case 2:
+                    objectLink.Dodge += increment;
+                    break;
+            }
+
 
             objectText.text = (Convert.ToInt32(objectText.text) + increment).ToString();
         }

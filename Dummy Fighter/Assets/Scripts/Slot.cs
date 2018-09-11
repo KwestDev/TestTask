@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.EventSystems;
 
 public enum LibraryType { ChainLibrary , LinkLibrary};
@@ -33,19 +33,43 @@ public class Slot : MonoBehaviour, IDropHandler
     #region IDropHandler implementation
     public void OnDrop(PointerEventData eventData)
     {
-       
+
         if (!item)
         {
 
             dragHandeler.itemBeingDragged.transform.SetParent(transform);
             var dragState = dragHandeler.itemBeingDragged.transform.GetComponent<Links>().State;
-            if (dragState == LinkState.Think || dragState == LinkState.Watch)
+
+            if (_LibraryType == LibraryType.ChainLibrary)
             {
-                if (_LibraryType == LibraryType.ChainLibrary)
+
+                List<Transform> list = new List<Transform>();
+                for (int i = 0; i < transform.parent.childCount; i++)
+                {
+
+                    list.Add(transform.parent.GetChild(i));
+                }
+
+                var index = list.IndexOf(gameObject.transform);
+
+                ChainInspector.Add(index, dragHandeler.itemBeingDragged);
+
+                if (dragState == LinkState.Think || dragState == LinkState.Watch)
+                {
                     dragHandeler.itemBeingDragged.transform.Find("GoToDisplay").gameObject.SetActive(true);
-                else
-                    dragHandeler.itemBeingDragged.transform.Find("GoToDisplay").gameObject.SetActive(false);
+
+                }
+
+
+
             }
+            else
+            {
+                dragHandeler.itemBeingDragged.transform.Find("GoToDisplay").gameObject.SetActive(false);
+                ChainInspector.Remove(dragHandeler.itemBeingDragged);
+
+            }
+        
             ExecuteEvents.ExecuteHierarchy<IHasChanged>(gameObject, null, (x, y) => x.HasChanged());
         }
     }

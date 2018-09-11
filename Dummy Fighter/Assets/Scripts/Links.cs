@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public enum LinkState { Think, Watch, Attack, Dodge };
+public enum LinkState { Think , Watch, Attack, Dodge };
 public enum ActiveProperty { Idle, Attack, Dodge};
 
 public class Links : MonoBehaviour {
