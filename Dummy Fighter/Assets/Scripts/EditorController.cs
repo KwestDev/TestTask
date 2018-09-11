@@ -1,7 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.UI;
+
 
 public class EditorController : MonoBehaviour {
 
@@ -20,17 +22,21 @@ public class EditorController : MonoBehaviour {
 	}
 	public void disableProperties ()
     {
-        foreach (var obj in states )
+        foreach (var obj in states)
         {
             if (obj.GetComponent<Links>().BoxActive)
             {
 
-                var propertyObjects = obj.transform.Find("GoToDisplay").GetComponentsInChildren<GameObject>();
-                foreach (var item in propertyObjects)
+
+                var propertyObjects = obj.transform.Find("GoToDisplay");
+
+                for (int i=0; i<propertyObjects.childCount; i++)
                 {
 
-                    item.transform.Find("colorChild").gameObject.SetActive(false);
+                    propertyObjects.transform.GetChild(i).GetComponent<Image>().color = Color.white;
+
                 }
+                obj.GetComponent<Links>().BoxActive = false;
             }
 
         }
@@ -40,7 +46,31 @@ public class EditorController : MonoBehaviour {
     public void OnPropertyChange (bool index)
     {
 
-        
+       // Debug.Log("working");
+        var obj = states.Find(x => x.GetComponent<Links>().BoxActive);
+        if (obj!=null)
+        {
+            var objectLink = obj.GetComponent<Links>();
+            int _index = (int)objectLink.Property;
+            switch (_index)
+            {
+                case 0:
+                    objectLink.Idle++;
+                    break;
+                case 1:
+                    objectLink.Attack++;
+                    break;
+                case 2:
+                    objectLink.Dodge++;
+                    break;
+            }
+
+            var objectText = objectLink.propertyBoxes[_index].transform.Find("TextValue").GetComponent<Text>();
+            var increment = index ? 1 : -1;
+            
+
+            objectText.text = (Convert.ToInt32(objectText.text) + increment).ToString();
+        }
 
 
     }

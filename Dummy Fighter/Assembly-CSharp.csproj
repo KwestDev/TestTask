@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\Links.cs" />
      <Compile Include="Assets\Scripts\LinksLibrary.cs" />
      <Compile Include="Assets\Scripts\LogicController.cs" />
+     <Compile Include="Assets\Scripts\propertyUpdate.cs" />
      <Compile Include="Assets\Scripts\Slot.cs" />
      <Compile Include="Assets\Scripts\States.cs" />
      <None Include="Assets\Description\description.txt" />
