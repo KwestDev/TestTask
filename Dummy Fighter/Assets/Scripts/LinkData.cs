@@ -8,7 +8,7 @@ public class LinkData  {
     public int Idle ;
     public int Attack;
     public int Dodge;
-    public string Type;
+    public LinkState Type;
 
 	void Start () {
 		
@@ -19,11 +19,11 @@ public class LinkData  {
         Idle = 0;
         Attack = 0;
         Dodge = 0;
-        Type = "";
+        Type = LinkState.Think;
 
     }
 
-    public LinkData(int idle, int attack, int dodge, string type)
+    public LinkData(int idle, int attack, int dodge, LinkState type)
     {
         Idle = idle;
         Attack = attack;
@@ -39,7 +39,7 @@ public class LinkData  {
         Idle = link.Idle;
         Attack = link.Attack;
         Dodge = link.Dodge;
-        Type = state[(int)link.State];
+        Type = link.State;
         
       
     }

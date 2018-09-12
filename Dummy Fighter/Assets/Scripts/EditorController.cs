@@ -56,6 +56,7 @@ public class EditorController : MonoBehaviour {
             if (!item.name.Equals("empty"))
                 ChainData.chain.Add(new LinkData(item));
         }
+
        
         var saveData = JsonMapper.ToJson(ChainData.chain);
        // Debug.Log(saveData);

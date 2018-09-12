@@ -299,7 +299,7 @@ Prefab:
     - target: {fileID: 224073397758450976, guid: c445d8cab8245474bb9d6cec26893a47,
         type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224073397758450976, guid: c445d8cab8245474bb9d6cec26893a47,
         type: 2}
@@ -309,7 +309,7 @@ Prefab:
     - target: {fileID: 224073397758450976, guid: c445d8cab8245474bb9d6cec26893a47,
         type: 2}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224073397758450976, guid: c445d8cab8245474bb9d6cec26893a47,
         type: 2}
@@ -370,24 +370,15 @@ Prefab:
       propertyPath: m_Name
       value: EnemyHealthBar
       objectReference: {fileID: 0}
-    - target: {fileID: 114831931650987324, guid: c445d8cab8245474bb9d6cec26893a47,
-        type: 2}
-      propertyPath: m_Color.g
-      value: 0.41911763
-      objectReference: {fileID: 0}
-    - target: {fileID: 114831931650987324, guid: c445d8cab8245474bb9d6cec26893a47,
-        type: 2}
-      propertyPath: m_Color.b
-      value: 0.41911763
-      objectReference: {fileID: 0}
-    - target: {fileID: 114831931650987324, guid: c445d8cab8245474bb9d6cec26893a47,
-        type: 2}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c445d8cab8245474bb9d6cec26893a47, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &532057183 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114831931650987324, guid: c445d8cab8245474bb9d6cec26893a47,
+    type: 2}
+  m_PrefabInternal: {fileID: 532057182}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!4 &558960412 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4800168594963276, guid: a74983bd6b866c843a6df1afaa53393b,
@@ -567,6 +558,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec7529bde8359744191de644496064a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerHealthBar: {fileID: 1209605907}
+  EnemyHealthBar: {fileID: 532057183}
 --- !u!114 &906590950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -824,9 +817,20 @@ Prefab:
       propertyPath: m_Name
       value: PlayerHealthBar
       objectReference: {fileID: 0}
+    - target: {fileID: 114831931650987324, guid: c445d8cab8245474bb9d6cec26893a47,
+        type: 2}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c445d8cab8245474bb9d6cec26893a47, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &1209605907 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114831931650987324, guid: c445d8cab8245474bb9d6cec26893a47,
+    type: 2}
+  m_PrefabInternal: {fileID: 1209605906}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!224 &1235354128 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224073397758450976, guid: c445d8cab8245474bb9d6cec26893a47,
