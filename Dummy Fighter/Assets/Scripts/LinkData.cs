@@ -5,7 +5,7 @@ using UnityEngine;
 public class LinkData  {
 
     // Use this for initialization
-    public int Idle;
+    public int Idle ;
     public int Attack;
     public int Dodge;
     public string Type;
@@ -13,7 +13,26 @@ public class LinkData  {
 	void Start () {
 		
 	}
-	public LinkData (GameObject element)
+
+    public LinkData()
+    {
+        Idle = 0;
+        Attack = 0;
+        Dodge = 0;
+        Type = "";
+
+    }
+
+    public LinkData(int idle, int attack, int dodge, string type)
+    {
+        Idle = idle;
+        Attack = attack;
+        Dodge = dodge;
+        Type = type;
+
+    }
+
+    public LinkData (GameObject element)
     {
         string [] state = new string[] { "Think", "Watch", "Attack", "Dodge" };
         var link = element.GetComponent<Links>();
@@ -23,6 +42,10 @@ public class LinkData  {
         Type = state[(int)link.State];
         
       
+    }
+    public void Display ()
+    {
+        Debug.Log(Idle +"" + Attack+"" + Dodge + " " + Type);
     }
 
 	// Update is called once per frame

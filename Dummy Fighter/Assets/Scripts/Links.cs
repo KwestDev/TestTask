@@ -40,6 +40,7 @@ public class Links : MonoBehaviour {
     }
     void Start () {
 
+       
         BoxActive = false;
         control = GameObject.FindGameObjectWithTag("EditorController").GetComponent<EditorController>();
 

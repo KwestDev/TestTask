@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System;
+using System.IO;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using LitJson;
 
@@ -11,8 +13,8 @@ public class EditorController : MonoBehaviour {
 
 
     public List<GameObject> states;
-    //public List<GameObject> stack = new List<GameObject>();
-	// Use this for initialization
+    public static bool enemyScene = false;
+    
 	void Start () {
         Undo.ClearAll();
 		
@@ -47,15 +49,28 @@ public class EditorController : MonoBehaviour {
 
     public void OnFightPressed ()
     {
-        
+
+        ChainData.RefreshChain();
         foreach (var item in ChainInspector.Chain)
         {
             if (!item.name.Equals("empty"))
                 ChainData.chain.Add(new LinkData(item));
         }
        
-        var x = JsonMapper.ToJson(ChainData.chain);
-        
+        var saveData = JsonMapper.ToJson(ChainData.chain);
+       // Debug.Log(saveData);
+
+        if (enemyScene)
+        {
+            File.WriteAllText(Application.dataPath + "/StreamingAssets/Enemy.json", saveData);
+           
+            SceneManager.LoadScene(1);
+        }
+        else
+        {
+            File.WriteAllText(Application.dataPath + "/StreamingAssets/Player.json", saveData);
+            SceneManager.LoadScene(0);
+        }
         
     }
 

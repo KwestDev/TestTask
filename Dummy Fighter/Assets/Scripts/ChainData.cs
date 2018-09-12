@@ -5,8 +5,13 @@ using UnityEngine;
 public class ChainData : MonoBehaviour {
 
     // Use this for initialization
-    public static List<LinkData> chain = new List<LinkData>();
+    public static List<LinkData> chain;
 
+    public static void RefreshChain()
+    {
+        chain = new List<LinkData>();
+
+    }
     public ChainData()
     {
         

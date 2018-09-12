@@ -5,14 +5,16 @@ using UnityEngine;
 public class ChainInspector : MonoBehaviour {
 
     // Use this for initialization
-    public static List<GameObject> Chain = new List<GameObject>();
+    public static List<GameObject> Chain;
 	void Start () {
-		
+        Chain = new List<GameObject>();
         for (int i=0;i<5;i++)
         {
             Chain.Add(new GameObject("empty"));
         }
 	}
+
+  
 	
     public static void Add(int index,GameObject element)
     {
@@ -20,10 +22,7 @@ public class ChainInspector : MonoBehaviour {
             Chain.Remove(element);
             Chain.Insert(index, element);
 
-        foreach (var obj in Chain)
-        {
-            Debug.Log(obj.name);
-        }
+        
 
     }
 

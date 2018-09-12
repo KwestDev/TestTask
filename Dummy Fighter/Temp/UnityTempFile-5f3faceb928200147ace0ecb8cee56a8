@@ -213,6 +213,7 @@
 -define:UNITY_2018
 -define:PLATFORM_ARCH_64
 -define:UNITY_64
+-define:UNITY_ANALYTICS
 -define:ENABLE_AUDIO
 -define:ENABLE_CACHING
 -define:ENABLE_CLOTH
@@ -304,6 +305,8 @@ Assets/Scripts/LinkData.cs
 Assets/Scripts/Links.cs
 Assets/Scripts/LogicController.cs
 Assets/Scripts/propertyUpdate.cs
+Assets/Scripts/SceneIdentifier.cs
 Assets/Scripts/Slot.cs
 Assets/Scripts/States.cs
+Assets/SimulationController.cs
 -lib:"F:\New folder\Editor\Data\MonoBleedingEdge\lib\mono\4.7.1-api"
