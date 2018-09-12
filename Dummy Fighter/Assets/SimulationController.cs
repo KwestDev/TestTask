@@ -4,7 +4,9 @@ using UnityEngine;
 using LitJson;
 using System.IO;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
+using UniRx;
+using System;
 public class SimulationController : MonoBehaviour {
 
     // Use this for initialization
@@ -12,10 +14,15 @@ public class SimulationController : MonoBehaviour {
     private List<LinkData> EnemyChain;
     public Image PlayerHealthBar;
     public Image EnemyHealthBar;
+    public Animator enemyAnim;
+    public Animator playerAnim;
     public bool playerReturn { get; set; }
     public bool enemyReturn { get; set; }
     int indexPlayer = 0;
     int indexEnemy = 0;
+    int bartime = 0;
+    bool gameEnd = false;
+   
     PlayerState statePlayer;
     PlayerState stateEnemy;
 
@@ -24,6 +31,7 @@ public class SimulationController : MonoBehaviour {
         EnemyChain  = JsonMapper.ToObject<List<LinkData>>(File.ReadAllText(Application.dataPath + "/StreamingAssets/Enemy.json"));
         playerReturn = false;
         enemyReturn = false;
+       
 
 
     }
@@ -37,12 +45,15 @@ public class SimulationController : MonoBehaviour {
         else if (chain[index].Type == LinkState.Watch)
         {
             //random
-            ChainSwapper(chain, index);
-
+            if (UnityEngine.Random.Range(0, 1) == 1)
+            {
+                if (chain.Count > 1)
+                    ChainSwapper(chain, index);
+            }
             return PlayerState.Idle;
         }
 
-
+        if (chain.Count > 1)
         ChainSwapper(chain, index);
        
         return PlayerState.Idle;
@@ -109,6 +120,17 @@ public class SimulationController : MonoBehaviour {
         chain[index2] = temp; 
     }
 
+    public void OnExit ()
+    {
+        Application.Quit();
+    }
+
+     public void OnReplay ()
+    {
+
+        SceneManager.LoadScene(1);
+    }
+
     void updateStates()
     {
         if (playerReturn)
@@ -127,6 +149,7 @@ public class SimulationController : MonoBehaviour {
 
                 indexPlayer = 0;
                 statePlayer = ReadChain(PlayerChain, indexPlayer);
+                if (PlayerChain.Count > 1)
                 indexPlayer++;
 
             }
@@ -159,7 +182,8 @@ public class SimulationController : MonoBehaviour {
 
                 indexEnemy = 0;
                 stateEnemy = ReadChain(EnemyChain, indexEnemy);
-                indexEnemy++;
+                if (EnemyChain.Count > 1)
+                    indexEnemy++;
 
             }
 
@@ -176,19 +200,89 @@ public class SimulationController : MonoBehaviour {
 
     }
 
-    void Update ()
+    int UpdateBar(PlayerState p1 , PlayerState p2)
     {
+        int damage = 0;
 
-       
-        
+        if (p2 == PlayerState.Attack)
+        {
+            switch (p1)
+            {
+                case PlayerState.Attack:
+                    damage = 3;
+                    break;
+                case PlayerState.DodgeReturn:
+                    damage = 2;
+                    break;
+                case PlayerState.Idle:
+                    damage = 1;
+                    break;
+
+            }
+        }
+        //Debug.Log(damage);
+        return damage;
 
     }
 
+   
+    void Update ()
+    {
+       
+            Observable.Timer(TimeSpan.FromSeconds(4)).Subscribe(x => {
+               
+             
+            if (!gameEnd)
+            {
+                    updateStates();
+                   
+                    
+                    PlayAnimation(statePlayer, playerAnim);
+                    PlayAnimation(stateEnemy, enemyAnim);
+                
+
+                
+                    Damage(PlayerHealthBar, UpdateBar(statePlayer, stateEnemy));
+                    Damage(EnemyHealthBar, UpdateBar(stateEnemy, statePlayer));
+                
+                //Debug.Log(stateEnemy + " " +statePlayer);
+
+                GameOver();
+            }
+
+            });
+        
+    }
+
+    private void PlayAnimation(PlayerState statePlayer, Animator Anim)
+    {
+       switch (statePlayer)
+        {
+            case PlayerState.Attack:
+                Anim.SetBool("Attack", true);
+                Observable.Timer(TimeSpan.FromMilliseconds(500)).Subscribe(y => {
+                Anim.SetBool("Attack", false);
+                });
+                break;
+            case PlayerState.Dodge:
+                Anim.SetBool("Dodge", true);
+                Observable.Timer(TimeSpan.FromMilliseconds(500)).Subscribe(y => {
+                    Anim.SetBool("Dodge", false);
+                });
+                break;
+           
+          
+        }
+    }
+
+   
+
     public void Damage(Image bar, int damage)
     {
-        float amount = damage / 10;
+        float amount = (float)damage / 10f;
+        Debug.Log(bar.fillAmount+" " + amount);
         if (amount < bar.fillAmount)
-            bar.fillAmount -= damage / 10;
+            bar.fillAmount = bar.fillAmount - amount;
         else
         {
             bar.fillAmount = 0;
@@ -202,16 +296,26 @@ public class SimulationController : MonoBehaviour {
         {
             if (EnemyHealthBar.fillAmount == 0)
             {
-                //draw
+                playerAnim.SetBool("Lose", true);
+                enemyAnim.SetBool("Lose", true);
+                Debug.Log("draw");
             }
             else
             {
-                  //EnemyWin
+                playerAnim.SetBool("Lose", true);
+                enemyAnim.SetBool("Win", true);
+                Debug.Log("Player Lose");
             }
+            gameEnd = true;
+            
         }
-        else
+        else if (EnemyHealthBar.fillAmount == 0)
         {
-            //PlayerWin
+            Debug.Log("Player Win");
+            playerAnim.SetBool("Win", true);
+            enemyAnim.SetBool("Lose", true);
+            gameEnd = true;
+            
         }
 
     }
