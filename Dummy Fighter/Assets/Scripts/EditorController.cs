@@ -23,6 +23,7 @@ public class EditorController : MonoBehaviour {
             states[i].GetComponent<Links>().State = (LinkState)i;
            // Debug.Log((LinkState)i);
         }
+        states.Clear();
 	}
 	public void disableProperties ()
     {

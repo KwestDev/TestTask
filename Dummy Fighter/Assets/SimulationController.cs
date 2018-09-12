@@ -36,6 +36,7 @@ public class SimulationController : MonoBehaviour {
     }
     void Update ()
     {
+        /*
         if ((PlayerChain[indexPlayer] == null))
         {
             indexPlayer = 0;
@@ -62,7 +63,7 @@ public class SimulationController : MonoBehaviour {
             indexEnemy++;
         }
 
-
+        */
 
     }
 

@@ -20,8 +20,9 @@ public class Links : MonoBehaviour {
     public  void OnPropertyClick (int index)
     {
 
+        Debug.Log("enter");
         control.disableProperties();
-        
+        Debug.Log("nobreak");
         var propertyObject = propertyBoxes[index].transform.GetComponent<Image>();
         propertyObject.color = Color.yellow;
         Property = (ActiveProperty) index;

@@ -37,12 +37,23 @@ public class Slot : MonoBehaviour, IDropHandler
         if (!item)
         {
 
-            dragHandeler.itemBeingDragged.transform.SetParent(transform);
-            var dragState = dragHandeler.itemBeingDragged.transform.GetComponent<Links>().State;
+            
 
             if (_LibraryType == LibraryType.ChainLibrary)
             {
 
+                GameObject clone;
+                if (dragHandeler.itemBeingDragged.transform.parent.GetComponent<Slot>()._LibraryType == LibraryType.ChainLibrary)
+                    clone = dragHandeler.itemBeingDragged;
+                else
+                    clone = GameObject.Instantiate(dragHandeler.itemBeingDragged);
+
+                clone.GetComponent<Links>().State = dragHandeler.itemBeingDragged.GetComponent<Links>().State;
+                GameObject.FindGameObjectWithTag("EditorController").GetComponent<EditorController>().states.Add(clone);
+               
+                clone.transform.SetParent(transform);
+                clone.transform.GetComponent<CanvasGroup>().blocksRaycasts = true;
+                var dragState = clone.GetComponent<Links>().State;
                 List<Transform> list = new List<Transform>();
                 for (int i = 0; i < transform.parent.childCount; i++)
                 {
@@ -52,11 +63,11 @@ public class Slot : MonoBehaviour, IDropHandler
 
                 var index = list.IndexOf(gameObject.transform);
 
-                ChainInspector.Add(index, dragHandeler.itemBeingDragged);
+                ChainInspector.Add(index, clone);
 
                 if (dragState == LinkState.Think || dragState == LinkState.Watch)
                 {
-                    dragHandeler.itemBeingDragged.transform.Find("GoToDisplay").gameObject.SetActive(true);
+                    clone.transform.Find("GoToDisplay").gameObject.SetActive(true);
 
                 }
 
@@ -66,7 +77,7 @@ public class Slot : MonoBehaviour, IDropHandler
             else
             {
                 dragHandeler.itemBeingDragged.transform.Find("GoToDisplay").gameObject.SetActive(false);
-                ChainInspector.Remove(dragHandeler.itemBeingDragged);
+                //ChainInspector.Remove(dragHandeler.itemBeingDragged);
 
             }
         

@@ -16,6 +16,7 @@ public class propertyUpdate : MonoBehaviour {
 
     public void OnPress(int index)
     {
+        Debug.Log("press");
         transform.parent.parent.parent.GetComponent<Links>().OnPropertyClick(index);
     }
 }
