@@ -85,14 +85,18 @@ public class UndoCommandCenter : MonoBehaviour {
                 modifiedObject.transform.SetParent(GameObject.FindGameObjectWithTag("ChainInspector").transform.GetChild(index2));
                 break;
             case UndoType.UpdateProperty:
-                var linkObj = modifiedObject.transform.parent.parent.GetComponent<Links>();
-                if (property == ActiveProperty.Attack)
-                    linkObj.Attack = index2;
-                else if (property == ActiveProperty.Dodge)
-                    linkObj.Dodge = index2;
-                else if (property == ActiveProperty.Idle)
-                    linkObj.Idle = index2;
-                modifiedObject.transform.GetChild(0).GetComponent<Text>().text = index2.ToString();
+                if (modifiedObject != null)
+                {
+                    var linkObj = modifiedObject.transform.parent.parent.GetComponent<Links>();
+                    if (property == ActiveProperty.Attack)
+                        linkObj.Attack = index2;
+                    else if (property == ActiveProperty.Dodge)
+                        linkObj.Dodge = index2;
+                    else if (property == ActiveProperty.Idle)
+                        linkObj.Idle = index2;
+                    modifiedObject.transform.GetChild(0).GetComponent<Text>().text = index2.ToString();
+
+                }
                 break;
 
         }
