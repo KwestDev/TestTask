@@ -42,21 +42,6 @@ public class Slot : MonoBehaviour, IDropHandler
             if (_LibraryType == LibraryType.ChainLibrary)
             {
 
-                var slot = GameObject.Instantiate(gameObject);
-                slot.transform.SetParent(transform.parent);
-
-                GameObject clone;
-                if (dragHandeler.itemBeingDragged.transform.parent.GetComponent<Slot>()._LibraryType == LibraryType.ChainLibrary)
-                    clone = dragHandeler.itemBeingDragged;
-                else
-                    clone = GameObject.Instantiate(dragHandeler.itemBeingDragged);
-
-                clone.GetComponent<Links>().State = dragHandeler.itemBeingDragged.GetComponent<Links>().State;
-                GameObject.FindGameObjectWithTag("EditorController").GetComponent<EditorController>().states.Add(clone);
-               
-                clone.transform.SetParent(transform);
-                clone.transform.GetComponent<CanvasGroup>().blocksRaycasts = true;
-                var dragState = clone.GetComponent<Links>().State;
                 List<Transform> list = new List<Transform>();
                 for (int i = 0; i < transform.parent.childCount; i++)
                 {
@@ -64,9 +49,46 @@ public class Slot : MonoBehaviour, IDropHandler
                     list.Add(transform.parent.GetChild(i));
                 }
 
+
+                var slot = GameObject.Instantiate(gameObject);
+                slot.transform.SetParent(transform.parent);
+                UndoCommandCenter temp = new UndoCommandCenter();
+
+                GameObject clone;
+                if (dragHandeler.itemBeingDragged.transform.parent.GetComponent<Slot>()._LibraryType == LibraryType.ChainLibrary)
+                {
+                    clone = dragHandeler.itemBeingDragged;
+                    temp.undoProperty = UndoType.SwapLink;
+                    temp.index1 = list.IndexOf(clone.transform.parent.transform);
+
+                }
+                else
+                {
+                    clone = GameObject.Instantiate(dragHandeler.itemBeingDragged);
+                    temp.undoProperty = UndoType.CreateLink;
+                    temp.index1 = list.IndexOf(gameObject.transform);
+                }
+
+                clone.GetComponent<Links>().State = dragHandeler.itemBeingDragged.GetComponent<Links>().State;
+                GameObject.FindGameObjectWithTag("EditorController").GetComponent<EditorController>().states.Add(clone);
+               
+                clone.transform.SetParent(transform);
+                clone.transform.GetComponent<CanvasGroup>().blocksRaycasts = true;
+                var dragState = clone.GetComponent<Links>().State;
+                
+                temp.modifiedObject = clone;
+
+                temp.state = clone.GetComponent<Links>().State;
+
+
+
                 var index = list.IndexOf(gameObject.transform);
 
+                temp.index2 = index;
                 ChainInspector.Add(index, clone);
+
+                UndoHandler.commandUndoList.Add(temp);
+                UndoHandler.commandRedoList.Clear();
 
                 if (dragState == LinkState.Think || dragState == LinkState.Watch)
                 {

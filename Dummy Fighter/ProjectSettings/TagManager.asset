@@ -7,6 +7,7 @@ TagManager:
   - EditorController
   - SceneIdentifier
   - ChainInspector
+  - Link
   layers:
   - Default
   - TransparentFX

@@ -18,6 +18,10 @@ public class EditorController : MonoBehaviour {
 
   
 
+    public void OnQuit()
+    {
+        Application.Quit();
+    }
     void LoadSession (List<LinkData> pchain)
     {
         if (pchain.Count < 1)
@@ -162,13 +166,17 @@ public class EditorController : MonoBehaviour {
     public void OnPropertyChange (bool index)
     {
 
-       // Debug.Log("working");
+        // Debug.Log("working");
+       
         var obj = states.Find(x => x.GetComponent<Links>().BoxActive);
         if (obj!=null)
         {
+            UndoCommandCenter temp = new UndoCommandCenter();
+            temp.undoProperty = UndoType.UpdateProperty;
             var objectLink = obj.GetComponent<Links>();
             int _index = (int)objectLink.Property;
-            
+            temp.property = objectLink.Property;
+            temp.modifiedObject = objectLink.propertyBoxes[_index];
 
             var objectText = objectLink.propertyBoxes[_index].transform.Find("TextValue").GetComponent<Text>();
             var increment = index ? 1 : -1;
@@ -176,18 +184,26 @@ public class EditorController : MonoBehaviour {
             switch (_index)
             {
                 case 0:
+                    temp.index1 = objectLink.Idle;
                     objectLink.Idle += increment;
+                    temp.index2 = objectLink.Idle;
                     break;
                 case 1:
+                    temp.index1 = objectLink.Attack;
                     objectLink.Attack += increment;
+                    temp.index2 = objectLink.Attack;
                     break;
                 case 2:
+                    temp.index1 = objectLink.Dodge;
                     objectLink.Dodge += increment;
+                    temp.index2 = objectLink.Dodge;
                     break;
             }
 
 
             objectText.text = (Convert.ToInt32(objectText.text) + increment).ToString();
+            UndoHandler.commandUndoList.Add(temp);
+            UndoHandler.commandRedoList.Clear();
         }
 
 
