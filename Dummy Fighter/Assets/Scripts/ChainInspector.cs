@@ -6,6 +6,7 @@ public class ChainInspector : MonoBehaviour {
 
     // Use this for initialization
     public static List<GameObject> Chain;
+    public GameObject slot;
 	void Start () {
         Chain = new List<GameObject>();
         for (int i=0;i<5;i++)

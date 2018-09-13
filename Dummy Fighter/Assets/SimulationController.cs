@@ -16,6 +16,7 @@ public class SimulationController : MonoBehaviour {
     public Image EnemyHealthBar;
     public Animator enemyAnim;
     public Animator playerAnim;
+    public static bool turnstate = false;
     public bool playerReturn { get; set; }
     public bool enemyReturn { get; set; }
     int indexPlayer = 0;
@@ -32,7 +33,7 @@ public class SimulationController : MonoBehaviour {
         EnemyChain  = JsonMapper.ToObject<List<LinkData>>(File.ReadAllText(Application.dataPath + "/StreamingAssets/Enemy.json"));
         playerReturn = false;
         enemyReturn = false;
-        Observable.Timer(TimeSpan.FromSeconds(3)).Subscribe(x => { session = true; });
+        Observable.Timer(TimeSpan.FromSeconds(4)).Subscribe(x => { session = true; });
 
 
     }
@@ -242,34 +243,39 @@ public class SimulationController : MonoBehaviour {
     void Update ()
     {
 
-        if (session)
+        if (!gameEnd)
         {
-            session = false;
-
-            
-
-                if (!gameEnd)
-                {
-                    updateStates();
 
 
-                    PlayAnimation(statePlayer, playerAnim);
-                    PlayAnimation(stateEnemy, enemyAnim);
-                    
 
 
-                Observable.Timer(TimeSpan.FromMilliseconds(950)).Subscribe(y =>
+            if (session)
+            {
+                updateStates();
+
+
+                PlayAnimation(statePlayer, playerAnim);
+                PlayAnimation(stateEnemy, enemyAnim);
+                session = false;
+
+
+            }
+
+            if (turnstate)
+               
                     {
+                
                         Damage(PlayerHealthBar, UpdateBar(statePlayer, stateEnemy));
                         Damage(EnemyHealthBar, UpdateBar(stateEnemy, statePlayer));
                         session = true;
+                        turnstate = false;
 
 
-                    });
+                    }
                     //Debug.Log(stateEnemy + " " +statePlayer);
 
                     GameOver();
-                }
+                
                 
 
                 
@@ -285,28 +291,28 @@ public class SimulationController : MonoBehaviour {
         {
             case PlayerState.Attack:
                 Anim.SetBool("Attack", true);
-                Observable.Timer(TimeSpan.FromMilliseconds(700)).Subscribe(y => {
-                Anim.SetBool("Attack", false);
-                });
+                //Observable.Timer(TimeSpan.FromMilliseconds(700)).Subscribe(y => {
+                //Anim.SetBool("Attack", false);
+                //});
                 break;
           
             case PlayerState.AttackReturn:
                 Anim.SetBool("AttackReturn", true);
-                Observable.Timer(TimeSpan.FromMilliseconds(700)).Subscribe(y => {
-                    Anim.SetBool("AttackReturn", false);
-                });
+                //Observable.Timer(TimeSpan.FromMilliseconds(700)).Subscribe(y => {
+                  //  Anim.SetBool("AttackReturn", false);
+                //});
                 break;
             case PlayerState.Dodge:
                 Anim.SetBool("Dodge", true);
-                Observable.Timer(TimeSpan.FromMilliseconds(700)).Subscribe(y => {
-                    Anim.SetBool("Dodge", false);
-                });
+                //Observable.Timer(TimeSpan.FromMilliseconds(700)).Subscribe(y => {
+                  //  Anim.SetBool("Dodge", false);
+                //});
                 break;
             case PlayerState.DodgeReturn:
                 Anim.SetBool("DodgeReturn", true);
-                Observable.Timer(TimeSpan.FromMilliseconds(700)).Subscribe(y => {
-                    Anim.SetBool("DodgeReturn", false);
-                });
+                //Observable.Timer(TimeSpan.FromMilliseconds(700)).Subscribe(y => {
+                  //  Anim.SetBool("DodgeReturn", false);
+                //});
                 break;
            
           

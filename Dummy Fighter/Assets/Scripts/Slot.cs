@@ -42,6 +42,9 @@ public class Slot : MonoBehaviour, IDropHandler
             if (_LibraryType == LibraryType.ChainLibrary)
             {
 
+                var slot = GameObject.Instantiate(gameObject);
+                slot.transform.SetParent(transform.parent);
+
                 GameObject clone;
                 if (dragHandeler.itemBeingDragged.transform.parent.GetComponent<Slot>()._LibraryType == LibraryType.ChainLibrary)
                     clone = dragHandeler.itemBeingDragged;

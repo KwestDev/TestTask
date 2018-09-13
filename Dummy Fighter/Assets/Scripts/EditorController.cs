@@ -14,6 +14,7 @@ public class EditorController : MonoBehaviour {
 
 
     public List<GameObject> states;
+    public GameObject slot;
 
   
 
@@ -22,7 +23,18 @@ public class EditorController : MonoBehaviour {
         if (pchain.Count < 1)
             return;
         List<Transform> slots = new List<Transform>();
+        for (int r=0; r < pchain.Count; r++ )
+        {
+
+
+        }
         Transform inspector = GameObject.FindGameObjectWithTag("ChainInspector").transform;
+        for (int r = 0; r < pchain.Count; r++)
+        {
+
+            var gm = GameObject.Instantiate<GameObject>(slot);
+            gm.transform.SetParent(inspector);
+        }
         for (int i=0; i< inspector.childCount; i++)
         {
             slots.Add(inspector.GetChild(i));
