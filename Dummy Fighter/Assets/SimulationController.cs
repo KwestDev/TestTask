@@ -48,13 +48,13 @@ public class SimulationController : MonoBehaviour {
             //random
             if (UnityEngine.Random.Range(0, 1) == 1)
             {
-                if (chain.Count > 1)
+                if (chain.Count > 2)
                     ChainSwapper(chain, index);
             }
             return PlayerState.Idle;
         }
 
-        if (chain.Count > 1)
+        if (chain.Count > 2)
         ChainSwapper(chain, index);
        
         return PlayerState.Idle;
