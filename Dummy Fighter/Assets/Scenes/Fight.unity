@@ -142,6 +142,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!95 &22279426 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95121057235771236, guid: a74983bd6b866c843a6df1afaa53393b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1419113811}
 --- !u!1 &176955167
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,6 +555,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerHealthBar: {fileID: 1209605907}
   EnemyHealthBar: {fileID: 532057183}
+  enemyAnim: {fileID: 1909219206}
+  playerAnim: {fileID: 22279426}
 --- !u!114 &906590950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1126,6 +1133,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!95 &1909219206 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95121057235771236, guid: a74983bd6b866c843a6df1afaa53393b,
+    type: 2}
+  m_PrefabInternal: {fileID: 434916771}
 --- !u!1 &1983817376
 GameObject:
   m_ObjectHideFlags: 0
