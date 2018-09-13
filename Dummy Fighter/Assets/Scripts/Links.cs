@@ -35,6 +35,13 @@ public class Links : MonoBehaviour {
     public Links()
     { }
 
+    public void setLink (LinkData obj)
+    {
+        Attack = obj.Attack;
+        Dodge = obj.Dodge;
+        Idle = obj.Idle;
+        State = obj.Type;
+    }
     public Links (LinkState state)
     {
         State = state;

@@ -149,9 +149,16 @@ public class SimulationController : MonoBehaviour {
 
 
                 indexPlayer = 0;
-                statePlayer = ReadChain(PlayerChain, indexPlayer);
-                if (PlayerChain.Count > 1)
-                indexPlayer++;
+                if (PlayerChain.Count < 1)
+                {
+                    statePlayer = PlayerState.Idle;
+                }
+                else
+                {
+                    statePlayer = ReadChain(PlayerChain, indexPlayer);
+                    if (PlayerChain.Count > 1)
+                        indexPlayer++;
+                }
 
             }
 
@@ -180,12 +187,17 @@ public class SimulationController : MonoBehaviour {
             if (indexEnemy == EnemyChain.Count )
             {
 
-
-                indexEnemy = 0;
-                stateEnemy = ReadChain(EnemyChain, indexEnemy);
-                if (EnemyChain.Count > 1)
-                    indexEnemy++;
-
+                if (EnemyChain.Count < 1)
+                {
+                    stateEnemy = PlayerState.Idle;
+                }
+                else
+                {
+                    indexEnemy = 0;
+                    stateEnemy = ReadChain(EnemyChain, indexEnemy);
+                    if (EnemyChain.Count > 1)
+                        indexEnemy++;
+                }
             }
 
             else

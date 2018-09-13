@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using LitJson;
+using UniRx;
 
 
 
@@ -13,6 +14,61 @@ public class EditorController : MonoBehaviour {
 
 
     public List<GameObject> states;
+
+  
+
+    void LoadSession (List<LinkData> pchain)
+    {
+        if (pchain.Count < 1)
+            return;
+        List<Transform> slots = new List<Transform>();
+        Transform inspector = GameObject.FindGameObjectWithTag("ChainInspector").transform;
+        for (int i=0; i< inspector.childCount; i++)
+        {
+            slots.Add(inspector.GetChild(i));
+        }
+        int index = 0;
+        foreach (var item in pchain)
+        {
+            var newLink = Instantiate<GameObject>(states[0]);
+            newLink.transform.SetParent(slots[index++]);
+            newLink.GetComponent<Links>().setLink(item);
+            ChainInspector.Chain.Add(newLink);
+            Text description = newLink.transform.GetChild(0).GetComponent<Text>();
+
+            var newLinkstate = newLink.GetComponent<Links>();
+            states.Add(newLink);
+
+            switch (newLinkstate.State)
+            {
+
+                case LinkState.Attack:
+                    description.text = "ATTACK"; 
+                    break;
+                case LinkState.Dodge:
+                    description.text = "DODGE";
+                    break;
+                case LinkState.Think:
+                    description.text = "THINK";
+                    newLink.transform.Find("GoToDisplay").gameObject.SetActive(true);
+                    newLinkstate.propertyBoxes[0].transform.Find("TextValue").GetComponent<Text>().text = newLinkstate.Idle.ToString() ;
+                    newLinkstate.propertyBoxes[1].transform.Find("TextValue").GetComponent<Text>().text = newLinkstate.Attack.ToString();
+                    newLinkstate.propertyBoxes[2].transform.Find("TextValue").GetComponent<Text>().text = newLinkstate.Dodge.ToString();
+                    break;
+                case LinkState.Watch:
+                    description.text = "WATCH";
+                    newLink.transform.Find("GoToDisplay").gameObject.SetActive(true);
+                    newLinkstate.propertyBoxes[0].transform.Find("TextValue").GetComponent<Text>().text = newLinkstate.Idle.ToString();
+                    newLinkstate.propertyBoxes[1].transform.Find("TextValue").GetComponent<Text>().text = newLinkstate.Attack.ToString();
+                    newLinkstate.propertyBoxes[2].transform.Find("TextValue").GetComponent<Text>().text = newLinkstate.Dodge.ToString();
+                    break;
+
+
+            }
+
+        }
+    }
+
     public static bool enemyScene = false;
     
 	void Start () {
@@ -23,7 +79,22 @@ public class EditorController : MonoBehaviour {
             states[i].GetComponent<Links>().State = (LinkState)i;
            // Debug.Log((LinkState)i);
         }
-        states.Clear();
+
+        List<LinkData> PlayerChain = new List<LinkData>();
+        List<LinkData> EnemyChain = new List<LinkData>();
+        if (File.Exists(Application.dataPath + "/StreamingAssets/Player.json"))
+         PlayerChain = JsonMapper.ToObject<List<LinkData>>(File.ReadAllText(Application.dataPath + "/StreamingAssets/Player.json"));
+        if (File.Exists(Application.dataPath + "/StreamingAssets/Enemy.json"))
+            EnemyChain = JsonMapper.ToObject<List<LinkData>>(File.ReadAllText(Application.dataPath + "/StreamingAssets/Enemy.json"));
+
+        if (GameObject.FindGameObjectsWithTag("SceneIdentifier").Length>1)
+            LoadSession(EnemyChain);
+        else
+            LoadSession(PlayerChain);
+
+
+              
+        
 	}
 	public void disableProperties ()
     {
